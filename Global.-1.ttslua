@@ -20,7 +20,7 @@ end
 -- @param object Objecting being dropped.
 --------------------------------------------------------------------------------
 function isCardPlayOnDrop(object)
-  local card_play_zone_GUID = "9496a9"
+  local card_play_zone_GUID = "dd760d"
   if object.type == "Card" and object.hasTag(shared_def.tag_in_hand) then
     for  _, zone in ipairs(object.getZones()) do
       if zone.guid == card_play_zone_GUID then
