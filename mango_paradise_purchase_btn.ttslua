@@ -1,0 +1,14 @@
+#include item_deck
+
+--------------------------------------------------------------------------------
+-- Draws a Mango paradise card from the item deck if available.
+--
+-- @param playerColor Color of the player trying to draw the card.
+--------------------------------------------------------------------------------
+function drawMangoParasizeCard(playerColor)
+  item_deck.purchaseFromItemDeck(playerColor, "mango_paradise_", "mango paradise")
+end
+
+function onDrop(playerColor)
+  drawMangoParasizeCard(playerColor)
+end
