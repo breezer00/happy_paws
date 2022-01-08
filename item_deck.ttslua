@@ -1,0 +1,42 @@
+#include utils
+#include shared_def
+
+item_deck = {}
+
+--------------------------------------------------------------------------------
+-- Draws a card from the item deck if available.
+--
+-- @param playerColor Color of the player trying to draw the card.
+-- @param cardNamePrefix Unique identifier of a type of item cards. Item cards
+--        of the same type are grouped by a unique prefix, for example, all dog
+--        leash cards starts with the name "dog_leash_".
+-- @param cardNameForLog A human readable string used for logging purposes.
+--------------------------------------------------------------------------------
+function item_deck.purchaseFromItemDeck(playerColor, cardNamePrefix,
+                                        cardNameForLog)
+  local card_name = cardNamePrefix
+  local item_deck_GUID = "de0c10"
+  local item_deck = getObjectFromGUID(item_deck_GUID)
+  if item_deck == nil then
+    print("No cards on item deck")
+    return
+  end
+  local item_deck_objects = item_deck.getObjects()
+  for _, item_deck_object in ipairs(item_deck_objects) do
+    if utils.string_starts_with(item_deck_object.name, card_name) then
+      local params = {
+        position = {0, 0, 0},
+        index = item_deck_object.index
+      }
+      local card = item_deck.takeObject(params)
+      if not card.hasTag(shared_def.tag_in_hand) then
+        printToColor("You purchased a ".. cardNameForLog .." card!",
+                     playerColor, playerColor)
+        card.addTag(shared_def.tag_in_hand)
+        card.deal(1, playerColor)
+        return
+      end
+    end
+  end
+  print("No available " .. cardNameForLog)
+end
