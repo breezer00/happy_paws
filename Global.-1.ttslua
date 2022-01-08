@@ -1,11 +1,38 @@
---[[ Lua code. See documentation: https://api.tabletopsimulator.com/ --]]
+#include shared_def
 
---[[ The onLoad event is called after the game save finishes loading. --]]
-function onLoad()
-    --[[ print('onLoad!') --]]
+--------------------------------------------------------------------------------
+-- Removes tag `tag_in_hand` from the card being played.
+--
+-- @param playerColor Color of the player trying to draw the card.
+-- @param card Card being played by player `playerColor`.
+--------------------------------------------------------------------------------
+function onCardPlay(playerColor, card)
+  card.removeTag(shared_def.tag_in_hand)
+  print("Player " .. playerColor .. " played " .. card.getName())
 end
 
---[[ The onUpdate event is called once per frame. --]]
-function onUpdate()
-    --[[ print('onUpdate loop!') --]]
+--------------------------------------------------------------------------------
+-- Determines whether the dropped object is a Card being placed on card play
+-- zone.
+--
+-- Should only be called from onObjectDrop.
+--
+-- @param object Objecting being dropped.
+--------------------------------------------------------------------------------
+function isCardPlayOnDrop(object)
+  local card_play_zone_GUID = "9496a9"
+  if object.type == "Card" and object.hasTag(shared_def.tag_in_hand) then
+    for  _, zone in ipairs(object.getZones()) do
+      if zone.guid == card_play_zone_GUID then
+        return true
+      end
+    end
+  end
+  return false
+end
+
+function onObjectDrop(playerColor, object)
+  if isCardPlayOnDrop(object) then
+    onCardPlay(playerColor, object)
+  end
 end

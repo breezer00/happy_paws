@@ -1,0 +1,2 @@
+shared_def = {}
+shared_def.tag_in_hand = "in_hand"

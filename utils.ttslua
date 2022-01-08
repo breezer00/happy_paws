@@ -1,0 +1,12 @@
+utils = {}
+
+--------------------------------------------------------------------------------
+-- Campares `str` with `start`, returns true if string `str` starts with string
+-- `start`.
+--
+-- @param str Source string to be compared.
+-- @param start Target string to be compared with. 
+--------------------------------------------------------------------------------
+function utils.string_starts_with(str, start)
+   return string.sub(str, 1, string.len(start)) == start
+end
