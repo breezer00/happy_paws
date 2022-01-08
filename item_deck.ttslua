@@ -20,7 +20,7 @@ function getItemDeckGUID()
   end
 
   -- Cached item deck GUID is no longer valid, retrieve a new one and cache it.
-  local item_deck_zone_GUID = "b2273d"
+  local item_deck_zone_GUID = "c0a960"
   local table_objects = getAllObjects()
   for _, table_object in ipairs(table_objects) do
     for  _, zone in ipairs(table_object.getZones()) do
