@@ -10,6 +10,10 @@ function drawDogLeashCard(color)
   local dog_leash_card_name = "dog_leash_"
   local item_deck_GUID = "a51186"
   local item_deck = getObjectFromGUID(item_deck_GUID)
+  if not item_deck then
+    print("No cards on item deck")
+    return
+  end
   local item_deck_objects = item_deck.getObjects()
   for _, item_deck_object in ipairs(item_deck_objects) do
     if utils.string_starts_with(item_deck_object.name, dog_leash_card_name) then
