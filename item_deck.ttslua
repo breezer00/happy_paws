@@ -1,5 +1,6 @@
 #include utils
 #include shared_def
+#include logUtils
 
 item_deck = {}
 item_deck_GUID_cache = nil
@@ -13,7 +14,7 @@ function getItemDeckGUID()
   if item_deck_GUID_cache ~= nil then
     local item_deck = getObjectFromGUID(item_deck_GUID_cache)
     if item_deck ~= nil then
-      log("Existing item deck guid ".. item_deck.guid)
+      logUtils.info("Existing item deck GUID ".. item_deck.guid)
       return item_deck_GUID_cache
     end
   end
@@ -24,7 +25,7 @@ function getItemDeckGUID()
   for _, table_object in ipairs(table_objects) do
     for  _, zone in ipairs(table_object.getZones()) do
       if zone.guid == item_deck_zone_GUID then
-        log("New item deck guid ".. table_object.guid)
+        logUtils.info("New item deck GUID ".. table_object.guid)
         item_deck_GUID_cache = table_object.guid
       end
     end
