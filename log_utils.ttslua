@@ -1,4 +1,4 @@
-logUtils = {}
+log_utils = {}
 logStyle("info", "Grey", string.format("[%.9f INFO]", Time.time), "")
 logStyle("warning", "Yellow", string.format("[%.9f WARN]", Time.time), "")
 
@@ -7,7 +7,7 @@ logStyle("warning", "Yellow", string.format("[%.9f WARN]", Time.time), "")
 --
 -- @param logMessage The log message.
 --------------------------------------------------------------------------------
-function logUtils.info(logMessage)
+function log_utils.info(logMessage)
   log(logMessage, nil, "info")
 end
 
@@ -16,6 +16,6 @@ end
 --
 -- @param logMessage The log message.
 --------------------------------------------------------------------------------
-function logUtils.warn(logMessage)
+function log_utils.warn(logMessage)
   log(logMessage, nil, "warning")
 end

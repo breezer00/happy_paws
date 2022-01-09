@@ -1,4 +1,4 @@
-#include logUtils
+#include log_utils
 
 checkbox = {}
 
@@ -16,7 +16,7 @@ function checkbox.toggle(checkboxGUID)
   if string.sub(text_val, 1, 1) ~= "[" or string.sub(text_val, 3, 3) ~= "]" or
       (string.sub(text_val, 2, 2) ~= "x" and
        string.sub(text_val, 2, 2) ~= " ") then
-    logUtils.warn("Attempt not toggle non-checkbox item.")
+    log_utils.warn("Attempt not toggle non-checkbox item.")
     return
   end
 
