@@ -1,0 +1,5 @@
+#include checkbox
+
+function onDrop(color)
+  checkbox.toggle("c969bd")
+end

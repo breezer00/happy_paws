@@ -1,0 +1,24 @@
+#include logUtils
+
+checkbox = {}
+
+function checkbox.toggle(checkboxGUID)
+  text = getObjectFromGUID(checkboxGUID)
+  text_val = text.getValue()
+
+  -- Sanity check to verify our checkbox format.
+  if string.sub(text_val, 1, 1) ~= "[" or string.sub(text_val, 3, 3) ~= "]" or
+      (string.sub(text_val, 2, 2) ~= "x" and
+       string.sub(text_val, 2, 2) ~= " ") then
+    logUtils.warn("Attempt not toggle non-checkbox item.")
+    return
+  end
+
+  -- Toggle the checkbox.
+  checked = string.sub(text_val, 2, 2) == "x"
+  if checked then
+    text.setValue(string.gsub(text_val, "x", " ", 1))
+  else
+    text.setValue(string.gsub(text_val, " ", "x", 1))
+  end
+end
