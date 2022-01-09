@@ -1,5 +1,6 @@
 logUtils = {}
 logStyle("info", "Grey", string.format("[%.9f INFO]", Time.time), "")
+logStyle("warning", "Yellow", string.format("[%.9f WARN]", Time.time), "")
 
 --------------------------------------------------------------------------------
 -- Logs a message to console with `info` style.
@@ -8,4 +9,13 @@ logStyle("info", "Grey", string.format("[%.9f INFO]", Time.time), "")
 --------------------------------------------------------------------------------
 function logUtils.info(logMessage)
   log(logMessage, nil, "info")
+end
+
+--------------------------------------------------------------------------------
+-- Logs a message to console with `warning` style.
+--
+-- @param logMessage The log message.
+--------------------------------------------------------------------------------
+function logUtils.warn(logMessage)
+  log(logMessage, nil, "warning")
 end
