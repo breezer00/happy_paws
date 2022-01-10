@@ -63,7 +63,6 @@ function item_deck.purchaseFromItemDeck(playerColor, cardNamePrefix,
       if not card.hasTag(shared_def.tag_in_hand) then
         printToColor("You purchased a ".. cardNameForLog .." card!",
                      playerColor, playerColor)
-        card.addTag(shared_def.tag_in_hand)
         card.deal(1, playerColor)
         return
       end

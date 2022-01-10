@@ -1,15 +1,4 @@
-#include shared_def
-
---------------------------------------------------------------------------------
--- Removes tag `tag_in_hand` from the card being played.
---
--- @param playerColor Color of the player trying to draw the card.
--- @param card Card being played by player `playerColor`.
---------------------------------------------------------------------------------
-function onCardPlay(playerColor, card)
-  card.removeTag(shared_def.tag_in_hand)
-  print("Player " .. playerColor .. " played " .. card.getName())
-end
+#include item_card
 
 --------------------------------------------------------------------------------
 -- Determines whether the dropped object is a Card being placed on card play
@@ -17,7 +6,7 @@ end
 --
 -- Should only be called from onObjectDrop.
 --
--- @param object Objecting being dropped.
+-- @param object Object being dropped.
 --------------------------------------------------------------------------------
 function isCardPlayOnDrop(object)
   local card_play_zone_GUID = "dd760d"
@@ -31,8 +20,32 @@ function isCardPlayOnDrop(object)
   return false
 end
 
+--------------------------------------------------------------------------------
+-- Determines whether we have a Card object entering a HandTrigger zone.
+--
+-- Should only be called from onObjectEnterZone.
+--
+-- @param zone Zone the Object `object` is entering.
+-- @param object Object entering Zone `zone`.
+--------------------------------------------------------------------------------
+function isCardEnterHandZone(zone, object)
+  return object.type == "Card" and zone.name == "HandTrigger"
+end
+
+--------------------------------------------------------------------------------
+--
+-- Predefined event handlers.
+--
+--------------------------------------------------------------------------------
+
 function onObjectDrop(playerColor, object)
   if isCardPlayOnDrop(object) then
-    onCardPlay(playerColor, object)
+    item_card.onCardPlay(object, playerColor)
+  end
+end
+
+function onObjectEnterZone(zone, object)
+  if isCardEnterHandZone(zone, object) then
+    item_card.onCardDeal(object)
   end
 end
