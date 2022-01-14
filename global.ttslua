@@ -1,4 +1,6 @@
 #include item_card
+#include utils
+#include log_utils
 
 --------------------------------------------------------------------------------
 -- Determines whether the dropped object is a Card being placed on card play
@@ -33,6 +35,47 @@ function isCardEnterHandZone(zone, object)
 end
 
 --------------------------------------------------------------------------------
+-- Retruns true iff a pee token has entered or left tree spots.
+--
+--
+-- @param zone Zone the Object `object` is entering or leaving.
+-- @param object Object entering or leaving Zone `zone`.
+--------------------------------------------------------------------------------
+function isPeeTokenEnterOrLeaveTreeSpot(zone, object)
+  local tree_spots_GUID = {"93db86", "89ae2f", "379e75", "c0be56", "9deec7"}
+  if utils.hasValue(tree_spots_GUID, zone.getGUID()) and
+      utils.strEndsWith(object.getName(), " Token") then
+    return true
+  end
+  return false
+end
+
+--------------------------------------------------------------------------------
+-- Returns player color given a pee token. A pee token is a token with name
+-- ending in " Token"
+--
+-- @param pee_token An Object that may or may not be a pee token.
+--------------------------------------------------------------------------------
+function getPlayerColorFromPeeToken(pee_token)
+  if not utils.strEndsWith(pee_token.getName(), " Token") then
+    log_utils.error("Invalid token.")
+    return
+  end
+  return string.lower(utils.strSplit(pee_token.getName(), ' ')[1])
+end
+
+--------------------------------------------------------------------------------
+-- Updates player victory points by `val`, `val` could be positive or negative.
+--
+-- @param player_color Player color.
+-- @param val Value to update the victory points with.
+--------------------------------------------------------------------------------
+function updatePlayerVp(player_color, val)
+  vp = getObjectFromGUID(shared_def.player_color_to_vp_GUID[player_color])
+  vp.setValue(vp.getValue() + val)
+end
+
+--------------------------------------------------------------------------------
 --
 -- Predefined event handlers.
 --
@@ -47,5 +90,15 @@ end
 function onObjectEnterZone(zone, object)
   if isCardEnterHandZone(zone, object) then
     item_card.onCardDeal(object)
+  end
+
+  if isPeeTokenEnterOrLeaveTreeSpot(zone, object) then
+    updatePlayerVp(getPlayerColorFromPeeToken(object), 1)
+  end
+end
+
+function onObjectLeaveZone(zone, object)
+  if isPeeTokenEnterOrLeaveTreeSpot(zone, object) then
+    updatePlayerVp(getPlayerColorFromPeeToken(object), -1)
   end
 end
