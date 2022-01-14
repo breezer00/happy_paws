@@ -37,7 +37,7 @@ function utils.strSplit(str, separator)
 end
 
 --------------------------------------------------------------------------------
--- Returns true if tabel contains member value `val`, false otherwise.
+-- Returns true if table contains member value `val`, false otherwise.
 --
 -- @param table A table containing zero or more values.
 -- @param val Value to be tested for `table` membership.

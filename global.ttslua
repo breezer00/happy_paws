@@ -35,7 +35,7 @@ function isCardEnterHandZone(zone, object)
 end
 
 --------------------------------------------------------------------------------
--- Retruns truf iff a pee token has entered or left tree spots.
+-- Retruns true iff a pee token has entered or left tree spots.
 --
 --
 -- @param zone Zone the Object `object` is entering or leaving.
