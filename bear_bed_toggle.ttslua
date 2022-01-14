@@ -1,5 +1,6 @@
 #include checkbox
+#include shared_def
 
 function onDrop(color)
-  checkbox.toggle("e7ac33")
+  checkbox.toggle("e7ac33", shared_def.bear_vp_GUID)
 end

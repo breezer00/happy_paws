@@ -6,10 +6,10 @@ checkbox = {}
 -- Toggles a checkbox. A checkbox is a 3D text that always starts with "[ ]" or
 -- "[x]", representing "not checked" and "checked" respectively.
 --
--- @param checkboxGUID GUID of the checkbox to be toggled.
+-- @param checkbox_GUID GUID of the checkbox to be toggled.
 --------------------------------------------------------------------------------
-function checkbox.toggle(checkboxGUID)
-  local text = getObjectFromGUID(checkboxGUID)
+function checkbox.toggle(checkbox_GUID, vp_GUID)
+  local text = getObjectFromGUID(checkbox_GUID)
   local text_val = text.getValue()
 
   -- Sanity check to verify our checkbox format.
@@ -20,11 +20,23 @@ function checkbox.toggle(checkboxGUID)
     return
   end
 
-  -- Toggle the checkbox.
-  checked = string.sub(text_val, 2, 2) == "x"
+  -- Toggle the checkbox, and update VP.
+  if vp_GUID ~= nil then
+    vp = getObjectFromGUID(vp_GUID)
+  end
+
+  local checked = string.sub(text_val, 2, 2) == "x"
   if checked then
     text.setValue(string.gsub(text_val, "x", " ", 1))
+    print(vp)
+    if vp ~= nil then
+      vp.setValue(vp.getValue() - 1)
+    end
   else
     text.setValue(string.gsub(text_val, " ", "x", 1))
+    print(vp)
+    if vp ~= nil then
+      vp.setValue(vp.getValue() + 1)
+    end
   end
 end

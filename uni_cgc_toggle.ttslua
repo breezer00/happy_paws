@@ -1,5 +1,6 @@
 #include checkbox
+#include shared_def
 
 function onDrop(color)
-  checkbox.toggle("c4805b")
+  checkbox.toggle("c4805b", shared_def.uni_vp_GUID)
 end
