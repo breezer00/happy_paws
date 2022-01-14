@@ -1,0 +1,138 @@
+--------------------------------------------------------------------------------
+-- Library for cutsom counter, supports on click trigger for counter increment
+-- and decrement. User must define onLoad(), click_func_minus(), and
+-- click_func_plus(), for example:
+--
+-- #include custom_counter
+-- function onLoad()
+--   custom_counter.onLoad()
+--  -- Add counter specific logic below.
+-- end
+
+-- function click_func_plus(obj, color, alt_click)
+--  custom_counter.click_func_plus(obj, color, alt_click)
+--  -- Add counter specific logic below.
+-- end
+
+-- function click_func_minus(obj, color, alt_click)
+--  custom_counter.click_func_plus(obj, color, alt_click)
+--  -- Add counter specific logic below.
+-- end
+--------------------------------------------------------------------------------
+#include log_utils
+
+custom_counter = {}
+local MAX_VAL = 999
+local MIN_VAL = -99
+local RESULT_BTN_IDX = 3
+
+--------------------------------------------------------------------------------
+-- Creates 3 buttons representing the counter -- one for increment, one for
+-- decrement, one for displaying current value.
+--
+-- @param default_val Optional default value to be displayed on load, defaults
+--        to 0.
+--------------------------------------------------------------------------------
+function custom_counter.onLoad(default_val)
+  if default_val == nil then
+    default_val = 0
+  elseif default_val > MAX_VAL or
+      default_val < MIN_VAL then
+    log_utils.error("Invalid default_val ".. default_val ..
+        ", must be less than "..MAX_VAL.." and greater than "..MIN_VAL)
+    return
+  end
+
+  params = {
+      click_function = "click_func_minus",
+      function_owner = self,
+      label          = "-1",
+      position       = {-2, 0, 0},
+      rotation       = {0, 0, 0},
+      width          = 1000,
+      height         = 1000,
+      font_size      = 600,
+      color          = {0.5, 0.5, 0.5},
+      font_color     = {1, 1, 1},
+      tooltip        = "",
+  }
+  self.createButton(params)
+
+  params = {
+      click_function = "click_func_plus",
+      function_owner = self,
+      label          = "+1",
+      position       = {2, 0, 0},
+      rotation       = {0, 0, 0},
+      width          = 1000,
+      height         = 1000,
+      font_size      = 600,
+      color          = {0.5, 0.5, 0.5},
+      font_color     = {1, 1, 1},
+      tooltip        = "",
+  }
+  self.createButton(params)
+
+  params = {
+      click_function = "click_func_nil",
+      function_owner = self,
+      label          = tostring(default_val),
+      position       = {0, 0.1, 0},
+      rotation       = {0, 0, 0},
+      width          = 1000,
+      height         = 1000,
+      font_size      = 600,
+      color          = {0.2, 0.2, 0.2},
+      font_color     = {1, 1, 1},
+      tooltip        = "",
+  }
+  self.createButton(params)
+end
+
+--------------------------------------------------------------------------------
+-- click_function for the "+1" button, increments the counter value by 1.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function custom_counter.click_func_plus(obj, color, alt_click)
+  old_val = tonumber(self.getButtons()[RESULT_BTN_IDX].label)
+  if old_val ~= MAX_VAL then
+    self.editButton({index=2, label=tostring(old_val + 1)})
+  end
+end
+
+--------------------------------------------------------------------------------
+-- click_function for the "-1" button, decrements the counter value by 1.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function custom_counter.click_func_minus(obj, color, alt_click)
+  old_val = tonumber(self.getButtons()[RESULT_BTN_IDX].label)
+  if old_val ~= MIN_VAL then
+    self.editButton({index=2, label=tostring(old_val - 1)})
+  end
+end
+
+--------------------------------------------------------------------------------
+-- click_function for the counter value display button, does nothing.
+--
+-- @param obj The Object the button is attached to. NOT USED.
+-- @param color Player Color of the player that pressed the button. NOT USED.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function click_func_nil(obj, color, alt_click)
+end
+
+--------------------------------------------------------------------------------
+-- Returns the current value of this button.
+--------------------------------------------------------------------------------
+function custom_counter.get_val()
+  return tonumber(self.getButtons()[RESULT_BTN_IDX].label)
+end
