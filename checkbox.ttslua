@@ -32,13 +32,11 @@ function checkbox.toggle(checkbox_GUID, vp_GUID)
   local checked = string.sub(text_val, 2, 2) == "x"
   if checked then
     text.setValue(string.gsub(text_val, "x", " ", 1))
-    print(vp)
     if vp ~= nil then
       vp.setValue(vp.getValue() - 1)
     end
   else
     text.setValue(string.gsub(text_val, " ", "x", 1))
-    print(vp)
     if vp ~= nil then
       vp.setValue(vp.getValue() + 1)
     end
