@@ -1,5 +1,5 @@
 #include checkbox
 
 function onDrop(color)
-  checkbox.toggle("656646")
+  checkbox.toggle("1ea805")
 end
