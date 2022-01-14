@@ -5,8 +5,48 @@ utils = {}
 -- `start`.
 --
 -- @param str Source string to be compared.
--- @param start Target string to be compared with. 
+-- @param start Target string to be compared with.
 --------------------------------------------------------------------------------
-function utils.string_starts_with(str, start)
-   return string.sub(str, 1, string.len(start)) == start
+function utils.strStartsWith(str, start)
+  return string.sub(str, 1, string.len(start)) == start
+end
+
+--------------------------------------------------------------------------------
+-- Campares `str` with `strEnd`, returns true if string `str` ends with string
+-- `strEnd`.
+--
+-- @param str Source string to be compared.
+-- @param strEnd Target string to be compared with.
+--------------------------------------------------------------------------------
+function utils.strEndsWith(str, strEnd)
+  return string.sub(str, -string.len(strEnd)) == strEnd
+end
+
+--------------------------------------------------------------------------------
+-- Splits string `str` by separator into a table.
+--
+-- @param str Source string to be splitted.
+-- @param separator Separator to split the string with.
+--------------------------------------------------------------------------------
+function utils.strSplit(str, separator)
+  splitted_str = {}
+  for token in string.gmatch(str, "([^"..separator.."]+)") do
+    table.insert(splitted_str, token)
+  end
+  return splitted_str
+end
+
+--------------------------------------------------------------------------------
+-- Returns true if tabel contains member value `val`, false otherwise.
+--
+-- @param table A table containing zero or more values.
+-- @param val Value to be tested for `table` membership.
+--------------------------------------------------------------------------------
+function utils.hasValue(table, val)
+  for i, v in ipairs(table) do
+    if v == val then
+      return true
+    end
+  end
+  return false
 end

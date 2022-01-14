@@ -54,7 +54,7 @@ function item_deck.purchaseFromItemDeck(playerColor, cardNamePrefix,
   end
   local item_deck_objects = item_deck.getObjects()
   for _, item_deck_object in ipairs(item_deck_objects) do
-    if utils.string_starts_with(item_deck_object.name, card_name) then
+    if utils.strStartsWith(item_deck_object.name, card_name) then
       local params = {
         position = {0, 0, 0},
         index = item_deck_object.index
