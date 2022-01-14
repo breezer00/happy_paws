@@ -1,0 +1,5 @@
+#include happiness_counter
+
+function onLoad()
+  happiness_counter.onLoad("e5ff3d")
+end

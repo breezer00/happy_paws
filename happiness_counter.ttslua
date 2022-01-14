@@ -1,0 +1,46 @@
+#include custom_counter
+
+happiness_counter = {}
+
+--------------------------------------------------------------------------------
+-- Creates a happiness counter from a custom_counter, with starting value of 3,
+-- and the associated victory points counter for points adjustment later.
+--------------------------------------------------------------------------------
+function happiness_counter.onLoad(vp_GUID)
+  custom_counter.onLoad(3)
+  vp = getObjectFromGUID(vp_GUID)
+end
+
+--------------------------------------------------------------------------------
+-- Increments happiness by 1, increment victory points if happiness increased to
+-- multiples of 5. Negative happiness does not impact victory points.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function click_func_plus(obj, color, alt_click)
+  custom_counter.click_func_plus(obj, color, alt_click)
+  happiness = custom_counter.get_val()
+  if happiness > 0 and happiness % 5 == 0 then
+    vp.setValue(vp.getValue() + 1)
+  end
+end
+
+--------------------------------------------------------------------------------
+-- Decremnets happiness by 1, decrement victory points if happiness had fallen
+-- from mutiples of 5. Negative happiness does not impact victory points.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function click_func_minus(obj, color, alt_click)
+  old_happiness = custom_counter.get_val()
+  custom_counter.click_func_minus(obj, color, alt_click)
+  if old_happiness > 0 and old_happiness % 5 == 0 then
+    vp.setValue(vp.getValue() - 1)
+  end
+end
