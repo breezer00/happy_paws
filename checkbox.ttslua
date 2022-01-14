@@ -4,9 +4,13 @@ checkbox = {}
 
 --------------------------------------------------------------------------------
 -- Toggles a checkbox. A checkbox is a 3D text that always starts with "[ ]" or
--- "[x]", representing "not checked" and "checked" respectively.
+-- "[x]", representing "not checked" and "checked" respectively. If vp_GUID is
+-- provided, when the box becomes checked, victory points counter with GUID
+-- `vp_GUID` is incremented; when the box becomes unchecked, victory points
+-- counter with GUID `vp_GUID` is decremented.
 --
 -- @param checkbox_GUID GUID of the checkbox to be toggled.
+-- @param vp_GUID GUID GUID of the victory pointer counter to be updated.
 --------------------------------------------------------------------------------
 function checkbox.toggle(checkbox_GUID, vp_GUID)
   local text = getObjectFromGUID(checkbox_GUID)
@@ -20,7 +24,7 @@ function checkbox.toggle(checkbox_GUID, vp_GUID)
     return
   end
 
-  -- Toggle the checkbox, and update VP.
+  -- Toggle the checkbox, and update VP if required.
   if vp_GUID ~= nil then
     vp = getObjectFromGUID(vp_GUID)
   end
