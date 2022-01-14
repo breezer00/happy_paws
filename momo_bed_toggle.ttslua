@@ -1,5 +1,6 @@
 #include checkbox
+#include shared_def
 
 function onDrop(color)
-  checkbox.toggle("2f343a")
+  checkbox.toggle("2f343a", shared_def.momo_vp_GUID)
 end

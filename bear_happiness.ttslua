@@ -1,5 +1,6 @@
 #include happiness_counter
+#include shared_def
 
 function onLoad()
-  happiness_counter.onLoad("407b46")
+  happiness_counter.onLoad(shared_def.bear_vp_GUID)
 end

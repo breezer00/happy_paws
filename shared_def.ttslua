@@ -1,2 +1,8 @@
 shared_def = {}
 shared_def.tag_in_hand = "in_hand"
+
+shared_def.bear_vp_GUID = "407b46"
+shared_def.bongo_vp_GUID = "38d0d0"
+shared_def.uni_vp_GUID = "0f13de"
+shared_def.momo_vp_GUID = "f3a2ad"
+shared_def.mango_vp_GUID = "e5ff3d"

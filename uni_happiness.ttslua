@@ -1,5 +1,6 @@
 #include happiness_counter
+#include shared_def
 
 function onLoad()
-  happiness_counter.onLoad("0f13de")
+  happiness_counter.onLoad(shared_def.uni_vp_GUID)
 end

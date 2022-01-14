@@ -1,5 +1,6 @@
 #include checkbox
+#include shared_def
 
 function onDrop(color)
-  checkbox.toggle("53d018")
+  checkbox.toggle("53d018", shared_def.bongo_vp_GUID)
 end

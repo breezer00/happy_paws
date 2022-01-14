@@ -1,5 +1,6 @@
 #include happiness_counter
+#include shared_def
 
 function onLoad()
-  happiness_counter.onLoad("f3a2ad")
+  happiness_counter.onLoad(shared_def.momo_vp_GUID)
 end

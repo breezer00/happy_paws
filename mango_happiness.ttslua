@@ -1,5 +1,6 @@
 #include happiness_counter
+#include shared_def
 
 function onLoad()
-  happiness_counter.onLoad("e5ff3d")
+  happiness_counter.onLoad(shared_def.mango_vp_GUID)
 end
