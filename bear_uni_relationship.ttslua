@@ -1,0 +1,7 @@
+#include lib/relationship_counter
+#include lib/shared_def
+
+function onLoad()
+  relationship_counter.onLoad("e58319", shared_def.bear_total_relationship,
+                              shared_def.uni_total_relationship)
+end

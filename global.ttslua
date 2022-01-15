@@ -1,5 +1,5 @@
-#include item_card
-#include utils
+#include lib/item_card
+#include lib/utils
 #include lib/log_utils
 
 --------------------------------------------------------------------------------

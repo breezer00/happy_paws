@@ -13,3 +13,9 @@ shared_def.player_color_to_vp_GUID["red"] = shared_def.momo_vp_GUID
 shared_def.player_color_to_vp_GUID["yellow"] = shared_def.mango_vp_GUID
 shared_def.player_color_to_vp_GUID["blue"] = shared_def.bongo_vp_GUID
 shared_def.player_color_to_vp_GUID["green"] = shared_def.bear_vp_GUID
+
+shared_def.momo_total_relationship = "280ec8"
+shared_def.uni_total_relationship = "743cd1"
+shared_def.mango_total_relationship = "9ec32f"
+shared_def.bongo_total_relationship = "dc2535"
+shared_def.bear_total_relationship = "f70b67"

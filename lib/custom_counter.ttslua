@@ -115,7 +115,8 @@ end
 function custom_counter.click_func_minus(obj, color, alt_click)
   old_val = tonumber(self.getButtons()[RESULT_BTN_IDX].label)
   if old_val ~= MIN_VAL then
-    self.editButton({index=2, label=tostring(old_val - 1)})
+    -- Sometimes the index starts with 1 sometimes starts with 0, lua quirks.
+    self.editButton({index=RESULT_BTN_IDX-1, label=tostring(old_val - 1)})
   end
 end
 
@@ -131,8 +132,27 @@ function click_func_nil(obj, color, alt_click)
 end
 
 --------------------------------------------------------------------------------
--- Returns the current value of this button.
+-- Returns the current value of a custom counter.
+--
+-- @param counter Optional param, if not provided, uses `self`.
 --------------------------------------------------------------------------------
-function custom_counter.get_val()
-  return tonumber(self.getButtons()[RESULT_BTN_IDX].label)
+function custom_counter.getVal(counter)
+  if counter == nil then
+    counter = self
+  end
+  return tonumber(counter.getButtons()[RESULT_BTN_IDX].label)
+end
+
+--------------------------------------------------------------------------------
+-- Sets value of a custom counter.
+--
+-- @param counter Optional param, if not provided, uses `self`.
+-- @param val The value to set counter to.
+--------------------------------------------------------------------------------
+function custom_counter.setVal(counter, val)
+  if counter == nil then
+    counter = self
+  end
+  -- Sometimes the index starts with 1 sometimes starts with 0, lua quirks.
+  counter.editButton({index=RESULT_BTN_IDX-1, label=tostring(val)})
 end
