@@ -1,4 +1,4 @@
-#include item_deck
+#include lib/item_deck
 
 --------------------------------------------------------------------------------
 -- Draws a Mango paradise card from the item deck if available.

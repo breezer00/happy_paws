@@ -1,4 +1,4 @@
-#include checkbox
+#include lib/checkbox
 
 function onDrop(color)
   checkbox.toggle("fd3674")

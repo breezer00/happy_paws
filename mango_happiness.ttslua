@@ -1,5 +1,5 @@
-#include happiness_counter
-#include shared_def
+#include lib/happiness_counter
+#include lib/shared_def
 
 function onLoad()
   happiness_counter.onLoad(shared_def.mango_vp_GUID)

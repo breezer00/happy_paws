@@ -1,6 +1,6 @@
 #include item_card
 #include utils
-#include log_utils
+#include lib/log_utils
 
 --------------------------------------------------------------------------------
 -- Determines whether the dropped object is a Card being placed on card play
