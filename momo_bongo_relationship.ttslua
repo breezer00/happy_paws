@@ -1,0 +1,7 @@
+#include lib/relationship_counter
+#include lib/shared_def
+
+function onLoad()
+  relationship_counter.onLoad("55fcce", shared_def.momo_total_relationship,
+                              shared_def.bongo_total_relationship)
+end

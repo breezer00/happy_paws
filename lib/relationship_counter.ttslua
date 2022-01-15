@@ -1,0 +1,61 @@
+#include custom_counter
+
+relationship_counter = {}
+
+--------------------------------------------------------------------------------
+-- Updates related relationship values.
+--
+-- @param valChange Value added to the current value of the related counter,
+--                  self total relationship, and related total relationship.
+--                  Can be positive or negative.
+--------------------------------------------------------------------------------
+function updatedRelatedCounterVal(valChange)
+  relationship = custom_counter.getVal(related_counter)
+  custom_counter.setVal(related_counter, relationship + valChange)
+  local s = self_total_relationship
+  s.setValue(tostring(tonumber(s.getValue()) + valChange))
+  local o = other_total_relationship
+  o.setValue(tostring(tonumber(o.getValue()) + valChange))
+end
+
+--------------------------------------------------------------------------------
+-- Creates a relationship_counter counter from a custom_counter, with starting
+-- value of 0. A relatioonship counter keeps track of its related relationship
+-- counter, associated total relationship, and the related total relationship.
+--------------------------------------------------------------------------------
+function relationship_counter.onLoad(related_counter_GUID,
+                                     self_total_relationship_GUID,
+                                     other_total_relationship_GUID)
+  custom_counter.onLoad(0)
+  related_counter = getObjectFromGUID(related_counter_GUID)
+  self_total_relationship = getObjectFromGUID(self_total_relationship_GUID)
+  other_total_relationship = getObjectFromGUID(other_total_relationship_GUID)
+end
+
+--------------------------------------------------------------------------------
+-- Increments relationship of both self and related relationship counter value
+-- by 1.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function click_func_plus(obj, color, alt_click)
+  custom_counter.click_func_plus(obj, color, alt_click)
+  updatedRelatedCounterVal(1)
+end
+
+--------------------------------------------------------------------------------
+-- Decrements relationship of both self and related relationship counter value
+-- by 1.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function click_func_minus(obj, color, alt_click)
+  custom_counter.click_func_minus(obj, color, alt_click)
+  updatedRelatedCounterVal(-1)
+end

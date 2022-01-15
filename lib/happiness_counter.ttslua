@@ -22,7 +22,7 @@ end
 --------------------------------------------------------------------------------
 function click_func_plus(obj, color, alt_click)
   custom_counter.click_func_plus(obj, color, alt_click)
-  happiness = custom_counter.get_val()
+  happiness = custom_counter.getVal()
   if happiness > 0 and happiness % 5 == 0 then
     vp.setValue(vp.getValue() + 1)
   end
@@ -38,7 +38,7 @@ end
 --        button.
 --------------------------------------------------------------------------------
 function click_func_minus(obj, color, alt_click)
-  old_happiness = custom_counter.get_val()
+  old_happiness = custom_counter.getVal()
   custom_counter.click_func_minus(obj, color, alt_click)
   if old_happiness > 0 and old_happiness % 5 == 0 then
     vp.setValue(vp.getValue() - 1)
