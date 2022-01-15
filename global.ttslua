@@ -84,7 +84,7 @@ end
 function isAchievementCardEnterOrLeaveAchievementZone(zone, object)
   local achievement_card_GUIDs = {"e85c94", "a8ce27", "a5d2f1", "dd65d6",
                                   "da2d81", "299289", "7afae6", "5bcd71",
-                                  "ba30d2"}
+                                  "ba30d2", "eed61a", "89446f", "eba4d0"}
   local achievement_zone_GUIDs = {"41a12a", "bb5562", "f21455", "464320",
                                   "3c2c53"}
   if utils.hasValue(achievement_zone_GUIDs, zone.getGUID()) and
@@ -115,9 +115,12 @@ end
 --------------------------------------------------------------------------------
 function getVpFromAchievementCard(achievement_card)
   local achievement_GUID_to_vp = {}
+  achievement_GUID_to_vp["eed61a"] = 1 -- Unbreakable Friendship
+  achievement_GUID_to_vp["89446f"] = 1 -- Unbreakable Friendship
   achievement_GUID_to_vp["e85c94"] = 1 -- Dog Lover
   achievement_GUID_to_vp["7afae6"] = 1 -- First Blood
   achievement_GUID_to_vp["a5d2f1"] = 1 -- Environmentalist
+  achievement_GUID_to_vp["eba4d0"] = 2 -- Friendly Dog
   achievement_GUID_to_vp["a8ce27"] = 2 -- Service Dog
   achievement_GUID_to_vp["dd65d6"] = 2 -- Dog Idol
   achievement_GUID_to_vp["da2d81"] = 2 -- Collector
