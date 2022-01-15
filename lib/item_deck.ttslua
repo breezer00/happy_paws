@@ -1,0 +1,72 @@
+#include utils
+#include shared_def
+#include log_utils
+
+item_deck = {}
+item_deck_GUID_cache = nil
+
+--------------------------------------------------------------------------------
+-- Finds the item deck GUID dynamically.
+--------------------------------------------------------------------------------
+function getItemDeckGUID()
+
+  -- If the cached item deck GUID is still valid, return the cached GUID.
+  if item_deck_GUID_cache ~= nil then
+    local item_deck = getObjectFromGUID(item_deck_GUID_cache)
+    if item_deck ~= nil then
+      log_utils.info("Existing item deck GUID ".. item_deck.guid)
+      return item_deck_GUID_cache
+    end
+  end
+
+  -- Cached item deck GUID is no longer valid, retrieve a new one and cache it.
+  local item_deck_zone_GUID = "c0a960"
+  local table_objects = getAllObjects()
+  for _, table_object in ipairs(table_objects) do
+    for  _, zone in ipairs(table_object.getZones()) do
+      if zone.guid == item_deck_zone_GUID then
+        log_utils.info("New item deck GUID ".. table_object.guid)
+        item_deck_GUID_cache = table_object.guid
+      end
+    end
+  end
+
+  return item_deck_GUID_cache
+end
+
+--------------------------------------------------------------------------------
+-- Draws a card from the item deck if available.
+--
+-- @param playerColor Color of the player trying to draw the card.
+-- @param cardNamePrefix Unique identifier of a type of item cards. Item cards
+--        of the same type are grouped by a unique prefix, for example, all dog
+--        leash cards starts with the name "dog_leash_".
+-- @param cardNameForLog A human readable string used for logging purposes.
+--------------------------------------------------------------------------------
+function item_deck.purchaseFromItemDeck(playerColor, cardNamePrefix,
+                                        cardNameForLog)
+  local card_name = cardNamePrefix
+  local item_deck_GUID = getItemDeckGUID()
+  local item_deck = getObjectFromGUID(item_deck_GUID)
+  if item_deck == nil then
+    print("No cards on item deck")
+    return
+  end
+  local item_deck_objects = item_deck.getObjects()
+  for _, item_deck_object in ipairs(item_deck_objects) do
+    if utils.strStartsWith(item_deck_object.name, card_name) then
+      local params = {
+        position = {0, 0, 0},
+        index = item_deck_object.index
+      }
+      local card = item_deck.takeObject(params)
+      if not card.hasTag(shared_def.tag_in_hand) then
+        printToColor("You purchased a ".. cardNameForLog .." card!",
+                     playerColor, playerColor)
+        card.deal(1, playerColor)
+        return
+      end
+    end
+  end
+  print("No available " .. cardNameForLog)
+end
