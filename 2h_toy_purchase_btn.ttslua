@@ -6,7 +6,7 @@
 -- @param playerColor Color of the player trying to draw the card.
 --------------------------------------------------------------------------------
 function draw2hToyCard(playerColor)
-  item_deck.purchaseFromItemDeck(playerColor, "2nd_hand_toy_", "second hand toy")
+  item_deck.drawFromItemDeck(playerColor, "2nd_hand_toy_", "second hand toy")
 end
 
 function onDrop(playerColor)

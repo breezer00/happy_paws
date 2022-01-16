@@ -1,0 +1,42 @@
+#include deck
+
+fate_deck = {}
+fate_deck_GUID_cache = nil
+
+--------------------------------------------------------------------------------
+-- Finds the fate deck GUID dynamically.
+--------------------------------------------------------------------------------
+function getFateDeckGUID()
+  -- If the cached fate deck GUID is still valid, return the cached GUID.
+  if fate_deck_GUID_cache ~= nil then
+    local fate_deck = getObjectFromGUID(fate_deck_GUID_cache)
+    if fate_deck ~= nil then
+      log_utils.info("Existing fate deck GUID ".. fate_deck.guid)
+      return fate_deck_GUID_cache
+    end
+  end
+
+  -- Cached fate deck GUID is no longer valid, retrieve a new one and cache it.
+  fate_deck_GUID_cache = deck.getDeckFromZoneGUID("4d2408")
+  return fate_deck_GUID_cache
+end
+
+--------------------------------------------------------------------------------
+-- Draws a card from the fate deck if available.
+--
+-- @param player_color Color of the player trying to draw the card.
+-- @param card_prefix Unique identifier of a type of fate cards. fate cards of
+--        the same type are grouped by a unique prefix, for example, all dog
+--        leash cards starts with the name "dog_leash_".
+-- @param card_name A human readable string used for logging purposes.
+--------------------------------------------------------------------------------
+function fate_deck.drawFromFateDeck(player_color, card_prefix, card_name)
+  local deck_GUID = getFateDeckGUID()
+  local fate_deck = getObjectFromGUID(deck_GUID)
+  if fate_deck == nil then
+    print("No cards on fate deck")
+    return
+  end
+
+  deck.drawFromDeck(player_color, deck_GUID, "", "random fate")
+end

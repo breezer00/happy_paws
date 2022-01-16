@@ -6,7 +6,7 @@
 -- @param playerColor Color of the player trying to draw the card.
 --------------------------------------------------------------------------------
 function drawMangoParasizeCard(playerColor)
-  item_deck.purchaseFromItemDeck(playerColor, "mango_paradise_", "mango paradise")
+  item_deck.drawFromItemDeck(playerColor, "mango_paradise_", "mango paradise")
 end
 
 function onDrop(playerColor)
