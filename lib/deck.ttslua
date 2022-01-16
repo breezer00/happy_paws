@@ -1,0 +1,60 @@
+#include utils
+#include shared_def
+#include log_utils
+
+deck = {}
+
+--------------------------------------------------------------------------------
+-- Finds the deck GUID dynamically from a deck zone GUID. Assumes there is only
+-- one deck in the zone.
+--
+-- @paran deck_zone_GUID GUID of the deck zone.
+--------------------------------------------------------------------------------
+function deck.getDeckFromZoneGUID(deck_zone_GUID)
+  local table_objects = getAllObjects()
+  for _, table_object in ipairs(table_objects) do
+    for  _, zone in ipairs(table_object.getZones()) do
+      if zone.guid == deck_zone_GUID then
+        deck_GUID = table_object.getGUID()
+        log_utils.info("New deck GUID ".. deck_GUID)
+        return deck_GUID
+      end
+    end
+  end
+end
+
+--------------------------------------------------------------------------------
+-- Draws a card from the deck if available.
+--
+-- @param playerColor Color of the player trying to draw the card.
+-- @param deck_GUID GUID of the deck.
+-- @param card_prefix Unique identifier of a type of cards. Item cards of the
+--        same type are grouped by a unique prefix, for example, all dogleash
+--        cards starts with the name "dog_leash_". Provide empty string for all
+--        cards. 
+-- @param card_name A human readable string used for logging purposes.
+--------------------------------------------------------------------------------
+function deck.drawFromDeck(player_color, deck_GUID, card_prefix, card_name)
+  local item_deck = getObjectFromGUID(deck_GUID)
+  if item_deck == nil then
+    print("No cards on item deck")
+    return
+  end
+
+  for _, item_deck_object in ipairs(item_deck.getObjects()) do
+    if utils.strStartsWith(item_deck_object.name, card_prefix) then
+      local params = {
+        position = {0, 0, 0},
+        index = item_deck_object.index
+      }
+      local card = item_deck.takeObject(params)
+      if not card.hasTag(shared_def.tag_in_hand) then
+        printToColor("You draw a ".. card_name .." card!", player_color,
+                     player_color)
+        card.deal(1, player_color)
+        return
+      end
+    end
+  end
+  print("No available " .. card_name)
+end

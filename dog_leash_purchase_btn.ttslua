@@ -6,7 +6,7 @@
 -- @param playerColor Color of the player trying to draw the card.
 --------------------------------------------------------------------------------
 function drawDogLeashCard(playerColor)
-  item_deck.purchaseFromItemDeck(playerColor, "dog_leash_", "dog leash")
+  item_deck.drawFromItemDeck(playerColor, "dog_leash_", "dog leash")
 end
 
 function onDrop(playerColor)
