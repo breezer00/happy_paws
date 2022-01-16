@@ -6,7 +6,7 @@
 -- @param playerColor Color of the player trying to draw the card.
 --------------------------------------------------------------------------------
 function drawPreventionPillsCard(playerColor)
-  item_deck.purchaseFromItemDeck(playerColor, "prevention_pills_", "prevention pills")
+  item_deck.drawFromItemDeck(playerColor, "prevention_pills_", "prevention pills")
 end
 
 function onDrop(playerColor)

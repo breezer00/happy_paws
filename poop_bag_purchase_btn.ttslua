@@ -6,7 +6,7 @@
 -- @param playerColor Color of the player trying to draw the card.
 --------------------------------------------------------------------------------
 function drawPoopBagCard(playerColor)
-  item_deck.purchaseFromItemDeck(playerColor, "poop_bag_", "poop bag")
+  item_deck.drawFromItemDeck(playerColor, "poop_bag_", "poop bag")
 end
 
 function onDrop(playerColor)
