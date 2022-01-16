@@ -1,5 +1,5 @@
 #include custom_button
-#include fate_deck
+#include item_deck
 
 --------------------------------------------------------------------------------
 -- Creates a custom button.
@@ -18,5 +18,5 @@ end
 --------------------------------------------------------------------------------
 function click_function(obj, color, alt_click)
   custom_button.click_function(obj, color, alt_click)
-  fate_deck.drawFromFateDeck(color, card_prefix, card_name)
+  item_deck.drawFromItemDeck(color, "", "random item")
 end
