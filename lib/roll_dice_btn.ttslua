@@ -1,0 +1,23 @@
+#include custom_button
+#include item_deck
+
+--------------------------------------------------------------------------------
+-- Creates a custom button.
+--------------------------------------------------------------------------------
+function onLoad()
+  custom_button.onLoad()
+end
+
+--------------------------------------------------------------------------------
+-- Handler for click, invoked when the custom button is clicked.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function click_function(obj, color, alt_click)
+  custom_button.click_function(obj, color, alt_click)
+  local dice = getObjectFromGUID("a0319a")
+  dice.roll()
+end
