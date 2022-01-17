@@ -7,6 +7,7 @@ local CHECKBOX_BTN_IDX = 1
 -- displaying the content of the checkbox.
 --
 -- @param display_text Default text to be displayed on load.
+-- @param tool_tip Text to display when mouse hovers over the buttons.
 --------------------------------------------------------------------------------
 function custom_checkbox.onLoad(display_text, tool_tip)
   params = {
