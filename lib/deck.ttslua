@@ -41,6 +41,9 @@ function deck.drawFromDeck(player_color, deck_GUID, card_prefix, card_name)
     return
   end
 
+  -- Shuffle the deck before dealing cards.
+  item_deck.shuffle()
+
   for _, item_deck_object in ipairs(item_deck.getObjects()) do
     if utils.strStartsWith(item_deck_object.name, card_prefix) then
       local params = {
