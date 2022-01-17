@@ -43,3 +43,12 @@ end
 function item_deck.drawFromItemDeck(player_color, card_prefix, card_name)
   deck.drawFromDeck(player_color, item_deck.getItemDeckGUID(), card_prefix, card_name)
 end
+
+--------------------------------------------------------------------------------
+-- Returns true if `obj` has tag "item_cards".
+--
+-- @param obj An object in the game.
+--------------------------------------------------------------------------------
+function item_deck.isItemCard(obj)
+  return obj.hasTag("item_cards")
+end

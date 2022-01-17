@@ -43,3 +43,12 @@ end
 function fate_deck.drawFromFateDeck(player_color, card_prefix, card_name)
   deck.drawFromDeck(player_color, fate_deck.getFateDeckGUID(), "", "random fate")
 end
+
+--------------------------------------------------------------------------------
+-- Returns true if `obj` has tag "fate_cards".
+--
+-- @param obj An object in the game.
+--------------------------------------------------------------------------------
+function fate_deck.isFateCard(obj)
+  return obj.hasTag("fate_cards")
+end

@@ -1,6 +1,5 @@
-#include lib/utils
-#include lib/log_utils
-#include lib/shared_def
+
+#include lib/item_deck
 
 --------------------------------------------------------------------------------
 -- Determines whether we have an item card with victory point entering or leaving
@@ -114,6 +113,34 @@ function getVpFromAchievementCard(achievement_card)
 end
 
 --------------------------------------------------------------------------------
+-- Returns true if `object` is an item card and `zone` is a hand zone.
+--
+-- @param zone A zone.
+-- @param object An object.
+--------------------------------------------------------------------------------
+local function isItemCardEnterHandZone(zone, object)
+  return zone.type == "Hand" and item_deck.isItemCard(object)
+end
+
+--------------------------------------------------------------------------------
+-- Hides `card` from all players other than the zone owner and the game master.
+--
+-- @param zone A zone.
+-- @param card A card to be hidden from.
+--------------------------------------------------------------------------------
+local function hideCardFromOtherPlayers(zone, card)
+  local player_color = zone.getValue()
+  local all_player_colors = Player.getAvailableColors()
+  local hide_from_players = {}
+  for i, color in ipairs(all_player_colors) do
+    if color ~= player_color and color ~= "Black" then
+      table.insert(hide_from_players, color)
+    end
+  end
+  card.setHiddenFrom(hide_from_players)
+end
+
+--------------------------------------------------------------------------------
 --
 -- Predefined event handlers.
 --
@@ -129,6 +156,10 @@ function onObjectEnterZone(zone, object)
     updatePlayerVp(getAchievementZonePlayerColor(zone),
                    getVpFromAchievementCard(object))
     return
+  end
+
+  if isItemCardEnterHandZone(zone, object) then
+    hideCardFromOtherPlayers(zone, object)
   end
 
   if isVpItemCardEnterOrLeaveHandZone(zone, object) then
