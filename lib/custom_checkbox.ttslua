@@ -1,8 +1,13 @@
 custom_checkbox = {}
 
 local CHECKBOX_BTN_IDX = 1
-vp_GUID = "0f13de"
 
+--------------------------------------------------------------------------------
+-- Creates 2 buttons representing a checkbox, one for the check mark, one for
+-- displaying the content of the checkbox.
+--
+-- @param display_text Default text to be displayed on load.
+--------------------------------------------------------------------------------
 function custom_checkbox.onLoad(display_text)
   params = {
       click_function = "click_function",
