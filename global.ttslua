@@ -152,3 +152,9 @@ function onObjectLeaveZone(zone, object)
     updatePlayerVp(zone.getValue(), -1)
   end
 end
+
+function onObjectLeaveContainer(container, leave_object)
+  if container.type == "Deck" then
+    leave_object.setTags(container.getTags())
+  end
+end

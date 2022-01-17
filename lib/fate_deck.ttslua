@@ -1,12 +1,13 @@
 #include deck
 
 fate_deck = {}
-fate_deck_GUID_cache = nil
+local fate_deck_GUID_cache = nil
+local FATE_DECK_ZONE_GUID = "4d2408"
 
 --------------------------------------------------------------------------------
 -- Finds the fate deck GUID dynamically.
 --------------------------------------------------------------------------------
-function getFateDeckGUID()
+function fate_deck.getFateDeckGUID()
   -- If the cached fate deck GUID is still valid, return the cached GUID.
   if fate_deck_GUID_cache ~= nil then
     local fate_deck = getObjectFromGUID(fate_deck_GUID_cache)
@@ -17,8 +18,17 @@ function getFateDeckGUID()
   end
 
   -- Cached fate deck GUID is no longer valid, retrieve a new one and cache it.
-  fate_deck_GUID_cache = deck.getDeckFromZoneGUID("4d2408")
+  fate_deck_GUID_cache = deck.getDeckFromZoneGUID(FATE_DECK_ZONE_GUID)
   return fate_deck_GUID_cache
+end
+
+--------------------------------------------------------------------------------
+-- Returns the fate deck position, which is defined to be the fate deck zone
+-- potision.
+--------------------------------------------------------------------------------
+function fate_deck.getFateDeckPosition()
+  deck_zone = getObjectFromGUID(FATE_DECK_ZONE_GUID)
+  return deck_zone.getPosition()
 end
 
 --------------------------------------------------------------------------------
@@ -31,5 +41,5 @@ end
 -- @param card_name A human readable string used for logging purposes.
 --------------------------------------------------------------------------------
 function fate_deck.drawFromFateDeck(player_color, card_prefix, card_name)
-  deck.drawFromDeck(player_color, getFateDeckGUID(), "", "random fate")
+  deck.drawFromDeck(player_color, fate_deck.getFateDeckGUID(), "", "random fate")
 end
