@@ -1,12 +1,13 @@
 #include deck
 
 item_deck = {}
-item_deck_GUID_cache = nil
+local item_deck_GUID_cache = nil
+local ITEM_DECK_ZONE_GUID = "c0a960"
 
 --------------------------------------------------------------------------------
 -- Finds the item deck GUID dynamically.
 --------------------------------------------------------------------------------
-function getItemDeckGUID()
+function item_deck.getItemDeckGUID()
   -- If the cached item deck GUID is still valid, return the cached GUID.
   if item_deck_GUID_cache ~= nil then
     local item_deck = getObjectFromGUID(item_deck_GUID_cache)
@@ -17,8 +18,17 @@ function getItemDeckGUID()
   end
 
   -- Cached item deck GUID is no longer valid, retrieve a new one and cache it.
-  item_deck_GUID_cache = deck.getDeckFromZoneGUID("c0a960")
+  item_deck_GUID_cache = deck.getDeckFromZoneGUID(ITEM_DECK_ZONE_GUID)
   return item_deck_GUID_cache
+end
+
+--------------------------------------------------------------------------------
+-- Returns the item deck position, which is defined to be the item deck zone
+-- position.
+--------------------------------------------------------------------------------
+function item_deck.getItemDeckPosition()
+  deck_zone = getObjectFromGUID(ITEM_DECK_ZONE_GUID)
+  return deck_zone.getPosition()
 end
 
 --------------------------------------------------------------------------------
@@ -31,5 +41,5 @@ end
 -- @param card_name A human readable string used for logging purposes.
 --------------------------------------------------------------------------------
 function item_deck.drawFromItemDeck(player_color, card_prefix, card_name)
-  deck.drawFromDeck(player_color, getItemDeckGUID(), card_prefix, card_name)
+  deck.drawFromDeck(player_color, item_deck.getItemDeckGUID(), card_prefix, card_name)
 end
