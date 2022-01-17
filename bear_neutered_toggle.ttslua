@@ -1,5 +1,0 @@
-#include lib/checkbox
-
-function onDrop(color)
-  checkbox.toggle("86c90f")
-end

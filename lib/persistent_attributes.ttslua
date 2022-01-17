@@ -1,0 +1,20 @@
+#include custom_checkbox
+
+persistent_attributes = {}
+
+function persistent_attributes.onLoad(display_text)
+  custom_checkbox.onLoad(display_text)
+end
+
+function persistent_attributes.click_function(obj, color, alt_click, vp_GUID)
+  custom_checkbox.click_function(obj, color, alt_click)
+ 
+  if vp_GUID ~= nil then
+    vp = getObjectFromGUID(vp_GUID)
+    if custom_checkbox.isChecked() then
+      vp.setValue(vp.getValue() + 1)
+    else
+      vp.setValue(vp.getValue() - 1)
+    end
+  end
+end

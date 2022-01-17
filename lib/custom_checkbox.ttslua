@@ -1,0 +1,58 @@
+custom_checkbox = {}
+
+local CHECKBOX_BTN_IDX = 1
+vp_GUID = "0f13de"
+
+function custom_checkbox.onLoad(display_text)
+  params = {
+      click_function = "click_function",
+      function_owner = self,
+      label          = "",
+      position       = {0, 0.2, 0},
+      rotation       = {0, 0, 0},
+      width          = 1000,
+      height         = 1000,
+      font_size      = 600,
+      color          = {0.9, 0.9, 0.9},
+      font_color     = {0.3, 0.3, 0.3},
+      tooltip        = "",
+  }
+  self.createButton(params)
+
+  params = {
+      click_function = "click_function",
+      function_owner = self,
+      label          = display_text,
+      position       = {6, 0.2, 0},
+      rotation       = {0, 0, 0},
+      width          = 4800,
+      height         = 1000,
+      font_size      = 600,
+      color          = {0.9, 0.9, 0.9},
+      font_color     = {0.3, 0.3, 0.3},
+      tooltip        = "",
+  }
+  self.createButton(params)
+end
+
+--------------------------------------------------------------------------------
+-- click_function for the button, does nothing for now.
+--
+-- @param obj The Object the button is attached to. NOT USED.
+-- @param color Player Color of the player that pressed the button. NOT USED.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function custom_checkbox.click_function(obj, color, alt_click)
+  old_val = self.getButtons()[CHECKBOX_BTN_IDX].label
+  if old_val == "X" then
+    self.editButton({index=CHECKBOX_BTN_IDX-1, label=""})
+  else
+    self.editButton({index=CHECKBOX_BTN_IDX-1, label="X"})
+  end
+end
+
+function custom_checkbox.isChecked()
+  value = self.getButtons()[CHECKBOX_BTN_IDX].label
+  return value == "X"
+end

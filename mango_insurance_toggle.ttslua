@@ -1,6 +1,0 @@
-#include lib/checkbox
-#include lib/shared_def
-
-function onDrop(color)
-  checkbox.toggle("b9b250", shared_def.mango_vp_GUID)
-end
