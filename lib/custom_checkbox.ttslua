@@ -7,9 +7,8 @@ local CHECKBOX_BTN_IDX = 1
 -- displaying the content of the checkbox.
 --
 -- @param display_text Default text to be displayed on load.
--- @param tool_tip Text to display when mouse hovers over the buttons.
 --------------------------------------------------------------------------------
-function custom_checkbox.onLoad(display_text, tool_tip)
+function custom_checkbox.onLoad(display_text)
   params = {
       click_function = "click_function",
       function_owner = self,
@@ -21,7 +20,7 @@ function custom_checkbox.onLoad(display_text, tool_tip)
       font_size      = 600,
       color          = {0.9, 0.9, 0.9},
       font_color     = {0.3, 0.3, 0.3},
-      tooltip        = tool_tip,
+      tooltip        = self.getDescription(),
   }
   self.createButton(params)
 
@@ -36,7 +35,7 @@ function custom_checkbox.onLoad(display_text, tool_tip)
       font_size      = 600,
       color          = {0.9, 0.9, 0.9},
       font_color     = {0.3, 0.3, 0.3},
-      tooltip        = tool_tip,
+      tooltip        = self.getDescription(),
   }
   self.createButton(params)
 end
