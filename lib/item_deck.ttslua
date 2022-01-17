@@ -24,7 +24,7 @@ end
 
 --------------------------------------------------------------------------------
 -- Returns the item deck position, which is defined to be the item deck zone
--- potision.
+-- position.
 --------------------------------------------------------------------------------
 function item_deck.getItemDeckPosition()
   deck_zone = getObjectFromGUID(ITEM_DECK_ZONE_GUID)

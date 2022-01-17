@@ -24,7 +24,7 @@ end
 
 --------------------------------------------------------------------------------
 -- Returns the fate deck position, which is defined to be the fate deck zone
--- potision.
+-- position.
 --------------------------------------------------------------------------------
 function fate_deck.getFateDeckPosition()
   deck_zone = getObjectFromGUID(FATE_DECK_ZONE_GUID)
