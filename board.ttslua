@@ -2,24 +2,6 @@
 #include lib/fate_deck
 
 --------------------------------------------------------------------------------
--- Returns true if `obj` has tag "item_cards".
---
--- @param obj An object in the game.
---------------------------------------------------------------------------------
-local function isItemCards(obj)
-  return obj.hasTag("item_cards")
-end
-
---------------------------------------------------------------------------------
--- Returns true if `obj` has tag "fate_cards".
---
--- @param obj An object in the game.
---------------------------------------------------------------------------------
-local function isFateCards(obj)
-  return obj.hasTag("fate_cards")
-end
-
---------------------------------------------------------------------------------
 -- Puts an item or fate card back to its original deck or deck position.
 --
 -- @param obj An object in the game.
@@ -28,35 +10,47 @@ local function returnItemOrFateCardsToDeck(obj)
   local deck = nil
   local deckPosition = nil
 
-  if isItemCards(obj) then
+  if not item_deck.isItemCard(obj) and not fate_deck.isFateCard(obj) then
+    return
+  end
+  log_utils.info("Returning card "..obj.getGUID().." to its deck.")
+
+  if item_deck.isItemCard(obj) then
+    -- Item cards are hidden from other players when drawn, so unhid from
+    -- all players when played.
+    obj.setHiddenFrom()
     deck = getObjectFromGUID(item_deck.getItemDeckGUID())
     deckPosition = item_deck.getItemDeckPosition()
   end
 
-  if isFateCards(obj) then
+  if fate_deck.isFateCard(obj) then
     deck = getObjectFromGUID(fate_deck.getFateDeckGUID())
     deckPosition = fate_deck.getFateDeckPosition()
-
   end
 
   -- `deck` could be nil if all cards from that deck were taken out, in that
   -- case, put the card back to the deck position.
-  if deck ~= nil then
-    deck.putObject(obj)
-    return
-  end
+  Wait.time(
+    function()
+      if deck ~= nil then
+        deck.putObject(obj)
+        return
+      end
 
-  if deckPosition ~= nil then
-    if not obj.is_face_down then
-      obj.flip()
-    end
-    position_param = {
-        x = deckPosition[1],
-        y = deckPosition[2],
-        z = deckPosition[3],
-    }
-    obj.setPositionSmooth(position_param, false, false)
-  end
+      if deckPosition ~= nil then
+        if not obj.is_face_down then
+          obj.flip()
+        end
+        position_param = {
+            x = deckPosition[1],
+            y = deckPosition[2],
+            z = deckPosition[3],
+        }
+        obj.setPositionSmooth(position_param, false, false)
+      end
+    end,
+    3
+  )
 end
 
 function onCollisionEnter(info)
