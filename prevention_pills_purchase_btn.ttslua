@@ -1,14 +1,21 @@
-#include lib/item_deck
+#include lib/purchase_button
 
 --------------------------------------------------------------------------------
--- Draws a prevention pills card from the item deck if available.
---
--- @param playerColor Color of the player trying to draw the card.
+-- Creates a custom button.
 --------------------------------------------------------------------------------
-function drawPreventionPillsCard(playerColor)
-  item_deck.drawFromItemDeck(playerColor, "prevention_pills_", "prevention pills")
+function onLoad()
+  purchase_button.onLoad()
 end
 
-function onDrop(playerColor)
-  drawPreventionPillsCard(playerColor)
+--------------------------------------------------------------------------------
+-- Handler for click, invoked when the custom button is clicked.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+--------------------------------------------------------------------------------
+function click_function(obj, color, alt_click)
+  purchase_button.click_function(obj, color, alt_click,
+                                 "prevention_pills_", "prevention pills")
 end

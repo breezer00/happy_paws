@@ -1,0 +1,29 @@
+#include custom_button
+#include item_deck
+
+purchase_button = {}
+
+--------------------------------------------------------------------------------
+-- Creates a custom button.
+--------------------------------------------------------------------------------
+function purchase_button.onLoad()
+  custom_button.onLoad("Buy", 4000, 1000)
+end
+
+--------------------------------------------------------------------------------
+-- Handler for click, invoked when the custom button is clicked.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+-- @param card_name_prefix Unique identifier of a type of item cards. Item cards
+--        of the same type are grouped by a unique prefix, for example, all dog
+--        leash cards starts with the name "dog_leash_".
+-- @param card_name_log A human readable string used for logging purposes.
+--------------------------------------------------------------------------------
+function purchase_button.click_function(obj, color, alt_click, card_name_prefix,
+                                        card_name_log)
+  custom_button.click_function(obj, color, alt_click)
+  item_deck.drawFromItemDeck(color, card_name_prefix, card_name_log)
+end

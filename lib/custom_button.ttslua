@@ -1,17 +1,35 @@
 custom_button = {}
 
-function custom_button.onLoad()
+local DEFAULT_WIDTH = 1000
+local DEFAULT_HEIGHT = 1000
+
+--------------------------------------------------------------------------------
+-- Creates a custom button.
+--------------------------------------------------------------------------------
+function custom_button.onLoad(display_text, width, height)
+  -- Sets up optional parameters.
+  if display_text == nil then
+    display_text = ""
+  end
+  if width == nil then
+    width = DEFAULT_WIDTH
+  end
+  if height == nil then
+    height = DEFAULT_HEIGHT
+  end
+
+  -- Creates the button.
   params = {
       click_function = "click_function",
       function_owner = self,
-      label          = "",
+      label          = display_text,
       position       = {0, 0.2, 0},
       rotation       = {0, 0, 0},
-      width          = 1000,
-      height         = 1000,
+      width          = width,
+      height         = height,
       font_size      = 600,
-      color          = {1, 1, 1},
-      font_color     = {1, 1, 1},
+      color          = {0.8, 0.8, 0.8},
+      font_color     = {0.2, 0.2, 0.2},
       tooltip        = "",
   }
   self.createButton(params)
