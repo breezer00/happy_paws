@@ -1,4 +1,3 @@
-#include lib/item_card
 #include lib/utils
 #include lib/log_utils
 
@@ -12,7 +11,7 @@
 --------------------------------------------------------------------------------
 function isCardPlayOnDrop(object)
   local card_play_zone_GUID = "dd760d"
-  if object.type == "Card" and object.hasTag(shared_def.tag_in_hand) then
+  if object.type == "Card" then
     for  _, zone in ipairs(object.getZones()) do
       if zone.guid == card_play_zone_GUID then
         return true
@@ -136,19 +135,7 @@ end
 --
 --------------------------------------------------------------------------------
 
-function onObjectDrop(playerColor, object)
-  if isCardPlayOnDrop(object) then
-    item_card.onCardPlay(object, playerColor)
-    return
-  end
-end
-
 function onObjectEnterZone(zone, object)
-  if isCardEnterHandZone(zone, object) then
-    item_card.onCardDeal(object)
-    return
-  end
-
   if isPeeTokenEnterOrLeaveTreeSpot(zone, object) then
     updatePlayerVp(getPlayerColorFromPeeToken(object), 1)
     return
