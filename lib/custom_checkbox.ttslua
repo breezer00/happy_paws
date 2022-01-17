@@ -8,7 +8,7 @@ local CHECKBOX_BTN_IDX = 1
 --
 -- @param display_text Default text to be displayed on load.
 --------------------------------------------------------------------------------
-function custom_checkbox.onLoad(display_text)
+function custom_checkbox.onLoad(display_text, tool_tip)
   params = {
       click_function = "click_function",
       function_owner = self,
@@ -20,7 +20,7 @@ function custom_checkbox.onLoad(display_text)
       font_size      = 600,
       color          = {0.9, 0.9, 0.9},
       font_color     = {0.3, 0.3, 0.3},
-      tooltip        = "",
+      tooltip        = tool_tip,
   }
   self.createButton(params)
 
@@ -35,7 +35,7 @@ function custom_checkbox.onLoad(display_text)
       font_size      = 600,
       color          = {0.9, 0.9, 0.9},
       font_color     = {0.3, 0.3, 0.3},
-      tooltip        = "",
+      tooltip        = tool_tip,
   }
   self.createButton(params)
 end
