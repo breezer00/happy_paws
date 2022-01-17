@@ -10,7 +10,7 @@ function getItemDeckGUID()
   -- If the cached item deck GUID is still valid, return the cached GUID.
   if item_deck_GUID_cache ~= nil then
     local item_deck = getObjectFromGUID(item_deck_GUID_cache)
-    if item_deck ~= nil then
+    if item_deck ~= nil and item_deck.type == "Deck" then
       log_utils.info("Existing item deck GUID ".. item_deck.guid)
       return item_deck_GUID_cache
     end
@@ -31,12 +31,5 @@ end
 -- @param card_name A human readable string used for logging purposes.
 --------------------------------------------------------------------------------
 function item_deck.drawFromItemDeck(player_color, card_prefix, card_name)
-  local deck_GUID = getItemDeckGUID()
-  local item_deck = getObjectFromGUID(deck_GUID)
-  if item_deck == nil then
-    print("No cards on item deck")
-    return
-  end
-
-  deck.drawFromDeck(player_color, deck_GUID, card_prefix, card_name)
+  deck.drawFromDeck(player_color, getItemDeckGUID(), card_prefix, card_name)
 end

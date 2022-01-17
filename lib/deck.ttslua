@@ -24,6 +24,34 @@ function deck.getDeckFromZoneGUID(deck_zone_GUID)
 end
 
 --------------------------------------------------------------------------------
+-- Finds a card with `card_prefix` from deck.
+--
+-- @param deck The deck of cards object to look for the card from.
+-- @param card_prefix Unique identifier of a type of cards. Item cards of the
+--        same type are grouped by a unique prefix, for example, all dogleash
+--        cards starts with the name "dog_leash_". Provide empty string for all
+--        cards.
+--------------------------------------------------------------------------------
+local function findCard(deck, card_prefix)
+  -- If only one card is left in the deck, the deck object becomes a card.
+  if deck.type == "Card" then
+    return deck
+  end
+
+  -- Shuffle the deck before dealing cards.
+  deck.shuffle()
+  for _, deck_object in ipairs(deck.getObjects()) do
+    if utils.strStartsWith(deck_object.name, card_prefix) then
+      local params = {
+        position = {0, 0, 0},
+        index = deck_object.index
+      }
+      return deck.takeObject(params)
+    end
+  end
+end
+
+--------------------------------------------------------------------------------
 -- Draws a card from the deck if available.
 --
 -- @param playerColor Color of the player trying to draw the card.
@@ -35,27 +63,13 @@ end
 -- @param card_name A human readable string used for logging purposes.
 --------------------------------------------------------------------------------
 function deck.drawFromDeck(player_color, deck_GUID, card_prefix, card_name)
-  local item_deck = getObjectFromGUID(deck_GUID)
-  if item_deck == nil then
-    print("No cards on item deck")
+  local deck = getObjectFromGUID(deck_GUID)
+  if deck == nil then
+    print("No cards on deck")
     return
   end
 
-  -- Shuffle the deck before dealing cards.
-  item_deck.shuffle()
-
-  for _, item_deck_object in ipairs(item_deck.getObjects()) do
-    if utils.strStartsWith(item_deck_object.name, card_prefix) then
-      local params = {
-        position = {0, 0, 0},
-        index = item_deck_object.index
-      }
-      local card = item_deck.takeObject(params)
-      printToColor("You draw a ".. card_name .." card!", player_color,
-                   player_color)
-      card.deal(1, player_color)
-      return
-    end
-  end
-  print("No available " .. card_name)
+  local card = findCard(deck, card_prefix)
+  printToColor("You draw a ".. card_name .." card!", player_color, player_color)
+  card.deal(1, player_color)
 end

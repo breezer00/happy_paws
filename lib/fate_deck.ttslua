@@ -10,7 +10,7 @@ function getFateDeckGUID()
   -- If the cached fate deck GUID is still valid, return the cached GUID.
   if fate_deck_GUID_cache ~= nil then
     local fate_deck = getObjectFromGUID(fate_deck_GUID_cache)
-    if fate_deck ~= nil then
+    if fate_deck ~= nil and fate_deck.type == "Deck" then
       log_utils.info("Existing fate deck GUID ".. fate_deck.guid)
       return fate_deck_GUID_cache
     end
@@ -31,12 +31,5 @@ end
 -- @param card_name A human readable string used for logging purposes.
 --------------------------------------------------------------------------------
 function fate_deck.drawFromFateDeck(player_color, card_prefix, card_name)
-  local deck_GUID = getFateDeckGUID()
-  local fate_deck = getObjectFromGUID(deck_GUID)
-  if fate_deck == nil then
-    print("No cards on fate deck")
-    return
-  end
-
-  deck.drawFromDeck(player_color, deck_GUID, "", "random fate")
+  deck.drawFromDeck(player_color, getFateDeckGUID(), "", "random fate")
 end
