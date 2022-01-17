@@ -33,7 +33,14 @@ local function returnItemOrFateCardsToDeck(obj)
   Wait.time(
     function()
       if deck ~= nil then
+        local deck_locked = deck.getLock()
+        if deck_locked then
+          deck.setLock(false)
+        end
         deck.putObject(obj)
+        if deck_locked then
+          deck.setLock(true)
+        end
         return
       end
 
