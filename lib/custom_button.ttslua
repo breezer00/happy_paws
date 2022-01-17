@@ -30,7 +30,7 @@ function custom_button.onLoad(display_text, width, height)
       font_size      = 600,
       color          = {0.8, 0.8, 0.8},
       font_color     = {0.2, 0.2, 0.2},
-      tooltip        = "",
+      tooltip        = self.getDescription(),
   }
   self.createButton(params)
 end

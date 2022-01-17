@@ -84,7 +84,7 @@ function custom_counter.onLoad(default_val)
       font_size      = 600,
       color          = {0.2, 0.2, 0.2},
       font_color     = {1, 1, 1},
-      tooltip        = "",
+      tooltip        = self.getDescription(),
   }
   self.createButton(params)
 end
