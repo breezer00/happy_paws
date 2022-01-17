@@ -1,36 +1,18 @@
 #include lib/utils
 #include lib/log_utils
+#include lib/shared_def
 
 --------------------------------------------------------------------------------
--- Determines whether the dropped object is a Card being placed on card play
--- zone.
---
--- Should only be called from onObjectDrop.
---
--- @param object Object being dropped.
---------------------------------------------------------------------------------
-function isCardPlayOnDrop(object)
-  local card_play_zone_GUID = "dd760d"
-  if object.type == "Card" then
-    for  _, zone in ipairs(object.getZones()) do
-      if zone.guid == card_play_zone_GUID then
-        return true
-      end
-    end
-  end
-  return false
-end
-
---------------------------------------------------------------------------------
--- Determines whether we have a Card object entering a HandTrigger zone.
---
--- Should only be called from onObjectEnterZone.
+-- Determines whether we have an item card with victory point entering or leaving
+-- a HandTrigger zone.
 --
 -- @param zone Zone the Object `object` is entering.
 -- @param object Object entering Zone `zone`.
 --------------------------------------------------------------------------------
-function isCardEnterHandZone(zone, object)
-  return object.type == "Card" and zone.name == "HandTrigger"
+function isVpItemCardEnterOrLeaveHandZone(zone, object)
+  local vp_item_cards_GUID = {"ac4b0a", "af377f", "e7b2a3"}
+  return object.type == "Card" and zone.name == "HandTrigger" and
+         utils.hasValue(vp_item_cards_GUID, object.getGUID())
 end
 
 --------------------------------------------------------------------------------
@@ -70,8 +52,11 @@ end
 -- @param val Value to update the victory points with.
 --------------------------------------------------------------------------------
 function updatePlayerVp(player_color, val)
+  player_color = string.lower(player_color)
   vp = getObjectFromGUID(shared_def.player_color_to_vp_GUID[player_color])
-  vp.setValue(vp.getValue() + val)
+  if vp ~= nil then
+    vp.setValue(vp.getValue() + val)
+  end
 end
 
 --------------------------------------------------------------------------------
@@ -146,6 +131,10 @@ function onObjectEnterZone(zone, object)
                    getVpFromAchievementCard(object))
     return
   end
+
+  if isVpItemCardEnterOrLeaveHandZone(zone, object) then
+    updatePlayerVp(zone.getValue(), 1)
+  end
 end
 
 function onObjectLeaveZone(zone, object)
@@ -158,5 +147,9 @@ function onObjectLeaveZone(zone, object)
     updatePlayerVp(getAchievementZonePlayerColor(zone),
                    -getVpFromAchievementCard(object))
     return
+  end
+
+  if isVpItemCardEnterOrLeaveHandZone(zone, object) then
+    updatePlayerVp(zone.getValue(), -1)
   end
 end
