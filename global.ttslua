@@ -3,9 +3,8 @@
 #include lib/shared_def
 
 --------------------------------------------------------------------------------
--- Determines whether we have a Card object entering a HandTrigger zone.
---
--- Should only be called from onObjectEnterZone.
+-- Determines whether we have an item card with victory point entering or leaving
+-- a HandTrigger zone.
 --
 -- @param zone Zone the Object `object` is entering.
 -- @param object Object entering Zone `zone`.
