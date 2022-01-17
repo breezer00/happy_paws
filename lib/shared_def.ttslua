@@ -1,5 +1,4 @@
 shared_def = {}
-shared_def.tag_in_hand = "in_hand"
 
 shared_def.bear_vp_GUID = "407b46"
 shared_def.bongo_vp_GUID = "38d0d0"

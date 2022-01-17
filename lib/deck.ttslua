@@ -31,7 +31,7 @@ end
 -- @param card_prefix Unique identifier of a type of cards. Item cards of the
 --        same type are grouped by a unique prefix, for example, all dogleash
 --        cards starts with the name "dog_leash_". Provide empty string for all
---        cards. 
+--        cards.
 -- @param card_name A human readable string used for logging purposes.
 --------------------------------------------------------------------------------
 function deck.drawFromDeck(player_color, deck_GUID, card_prefix, card_name)
@@ -48,12 +48,10 @@ function deck.drawFromDeck(player_color, deck_GUID, card_prefix, card_name)
         index = item_deck_object.index
       }
       local card = item_deck.takeObject(params)
-      if not card.hasTag(shared_def.tag_in_hand) then
-        printToColor("You draw a ".. card_name .." card!", player_color,
-                     player_color)
-        card.deal(1, player_color)
-        return
-      end
+      printToColor("You draw a ".. card_name .." card!", player_color,
+                   player_color)
+      card.deal(1, player_color)
+      return
     end
   end
   print("No available " .. card_name)
