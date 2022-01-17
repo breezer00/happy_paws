@@ -52,7 +52,9 @@ function custom_checkbox.click_function(obj, color, alt_click)
   end
 end
 
+--------------------------------------------------------------------------------
+-- Returns true if the checkbox is checked, false otherwise.
+--------------------------------------------------------------------------------
 function custom_checkbox.isChecked()
-  value = self.getButtons()[CHECKBOX_BTN_IDX].label
-  return value == "X"
+  return self.getButtons()[CHECKBOX_BTN_IDX].label == "X"
 end
