@@ -4,7 +4,7 @@ persistent_attributes = {}
 
 local display_text_to_rules = {}
 display_text_to_rules["Spayed"] = "Must pay 2H and stay 1 day in the vet to get spayed; pre-requisit for pet insurance"
-display_text_to_rules["Neutered"] = "Must pay 2H and stay 1 day in the vet to get spayed; pre-requisit for pet insurance"
+display_text_to_rules["Neutered"] = "Must pay 2H and stay 1 day in the vet to get neutered; pre-requisit for pet insurance"
 display_text_to_rules["Pet Insurance"] = "Must be spayed first; cost 2H; VP=1; H loss -1 in the vet; can be bought in pet stores"
 display_text_to_rules["CGC Certificate"] = "Training must be >=3; cost 2H; VP=1; can use transportation; can be bought in pet stores"
 display_text_to_rules["Dog Luxury Bed"] = "Cleanliness must be >=3; cost 2H; VP=1; no relationship loss in the hotel; can be bought in pet stores"
