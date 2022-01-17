@@ -1,6 +1,0 @@
-#include lib/checkbox
-#include lib/shared_def
-
-function onDrop(color)
-  checkbox.toggle("ad87b1", shared_def.uni_vp_GUID)
-end

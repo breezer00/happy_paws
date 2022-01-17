@@ -1,0 +1,11 @@
+#include lib/persistent_attributes
+#include lib/shared_def
+
+function onLoad()
+  persistent_attributes.onLoad("Dog Luxury Bed")
+end
+
+function click_function(obj, color, alt_click)
+  persistent_attributes.click_function(obj, color, alt_click,
+                                       shared_def.uni_vp_GUID)
+end

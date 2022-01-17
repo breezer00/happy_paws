@@ -1,0 +1,34 @@
+#include custom_checkbox
+
+persistent_attributes = {}
+
+--------------------------------------------------------------------------------
+-- Creates a custom checkbox to represent a persistent attribute.
+--------------------------------------------------------------------------------
+function persistent_attributes.onLoad(display_text)
+  custom_checkbox.onLoad(display_text)
+end
+
+--------------------------------------------------------------------------------
+-- Un/Marks a persistent attribute, if the persistent attribute affects victory
+-- points, update victory points as well.
+--
+-- @param obj The Object the button is attached to.
+-- @param color Player Color of the player that pressed the button.
+-- @param alt_click True if a button other than left-click was used to click the
+--        button.
+-- @param vp_GUID Optional, can be passed in if the persistent attribute affects
+--                victory points.
+--------------------------------------------------------------------------------
+function persistent_attributes.click_function(obj, color, alt_click, vp_GUID)
+  custom_checkbox.click_function(obj, color, alt_click)
+
+  if vp_GUID ~= nil then
+    vp = getObjectFromGUID(vp_GUID)
+    if custom_checkbox.isChecked() then
+      vp.setValue(vp.getValue() + 1)
+    else
+      vp.setValue(vp.getValue() - 1)
+    end
+  end
+end
