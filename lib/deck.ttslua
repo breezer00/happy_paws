@@ -14,13 +14,15 @@ function deck.getDeckFromZoneGUID(deck_zone_GUID)
   local table_objects = getAllObjects()
   for _, table_object in ipairs(table_objects) do
     for  _, zone in ipairs(table_object.getZones()) do
-      if zone.guid == deck_zone_GUID then
+      if zone.guid == deck_zone_GUID and (table_object.type == "Deck" or
+          table_object.type == "Card") then
         deck_GUID = table_object.getGUID()
         log_utils.info("New deck GUID ".. deck_GUID)
         return deck_GUID
       end
     end
   end
+  log_utils.info("No deck found in zone "..deck_zone_GUID)
 end
 
 --------------------------------------------------------------------------------
