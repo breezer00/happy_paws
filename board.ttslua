@@ -56,7 +56,7 @@ local function returnItemOrFateCardsToDeck(obj)
         obj.setPositionSmooth(position_param, false, false)
       end
     end,
-    3
+    1
   )
 end
 
