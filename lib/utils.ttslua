@@ -50,3 +50,18 @@ function utils.hasValue(table, val)
   end
   return false
 end
+
+--------------------------------------------------------------------------------
+-- Returns true if table contains key `key`, false otherwise.
+--
+-- @param table A table containing zero or more values.
+-- @param key Key to be tested for `table` membership.
+--------------------------------------------------------------------------------
+function utils.hasKey(table, key)
+  for k, v in pairs(table) do
+    if k == key then
+      return true
+    end
+  end
+  return false
+end

@@ -1,5 +1,27 @@
 #include lib/item_deck
 
+achievement_card_GUID_to_vp = {}
+achievement_card_GUID_to_vp["eed61a"] = 1 -- Unbreakable Friendship
+achievement_card_GUID_to_vp["89446f"] = 1 -- Unbreakable Friendship
+achievement_card_GUID_to_vp["e85c94"] = 1 -- Dog Lover
+achievement_card_GUID_to_vp["a5d2f1"] = 1 -- Environmentalist
+achievement_card_GUID_to_vp["2e80c1"] = 2 -- Balance
+achievement_card_GUID_to_vp["eba4d0"] = 2 -- Friendly Dog
+achievement_card_GUID_to_vp["a8ce27"] = 2 -- Service Dog
+achievement_card_GUID_to_vp["dd65d6"] = 2 -- Dog Idol
+achievement_card_GUID_to_vp["da2d81"] = 2 -- Collector
+achievement_card_GUID_to_vp["299289"] = 2 -- Careless Parents
+achievement_card_GUID_to_vp["5bcd71"] = 2 -- King/Queen of Dog Park
+achievement_card_GUID_to_vp["ba30d2"] = 2 -- Poor Dog
+
+
+achievement_zone_GUID_to_player_color = {}
+achievement_zone_GUID_to_player_color["41a12a"] = "red"
+achievement_zone_GUID_to_player_color["bb5562"] = "white"
+achievement_zone_GUID_to_player_color["f21455"] = "yellow"
+achievement_zone_GUID_to_player_color["464320"] = "blue"
+achievement_zone_GUID_to_player_color["3c2c53"] = "green"
+
 --------------------------------------------------------------------------------
 -- Determines whether we have an item card with victory point entering or leaving
 -- a HandTrigger zone.
@@ -64,13 +86,8 @@ end
 -- @param object Object entering or leaving Zone `zone`.
 --------------------------------------------------------------------------------
 function isAchievementCardEnterOrLeaveAchievementZone(zone, object)
-  local achievement_card_GUIDs = {"e85c94", "a8ce27", "a5d2f1", "dd65d6",
-                                  "da2d81", "299289", "5bcd71",
-                                  "ba30d2", "eed61a", "89446f", "eba4d0"}
-  local achievement_zone_GUIDs = {"41a12a", "bb5562", "f21455", "464320",
-                                  "3c2c53"}
-  if utils.hasValue(achievement_zone_GUIDs, zone.getGUID()) and
-      utils.hasValue(achievement_card_GUIDs, object.getGUID()) then
+  if utils.hasKey(achievement_zone_GUID_to_player_color, zone.getGUID()) and
+      utils.hasKey(achievement_card_GUID_to_vp, object.getGUID()) then
     return true
   end
 end
@@ -81,12 +98,6 @@ end
 -- @param zone An achievement zone.
 --------------------------------------------------------------------------------
 function getAchievementZonePlayerColor(zone)
-  local achievement_zone_GUID_to_player_color = {}
-  achievement_zone_GUID_to_player_color["41a12a"] = "red"
-  achievement_zone_GUID_to_player_color["bb5562"] = "white"
-  achievement_zone_GUID_to_player_color["f21455"] = "yellow"
-  achievement_zone_GUID_to_player_color["464320"] = "blue"
-  achievement_zone_GUID_to_player_color["3c2c53"] = "green"
   return achievement_zone_GUID_to_player_color[zone.getGUID()]
 end
 
@@ -96,19 +107,7 @@ end
 -- @param achievement_card An achievement card.
 --------------------------------------------------------------------------------
 function getVpFromAchievementCard(achievement_card)
-  local achievement_GUID_to_vp = {}
-  achievement_GUID_to_vp["eed61a"] = 1 -- Unbreakable Friendship
-  achievement_GUID_to_vp["89446f"] = 1 -- Unbreakable Friendship
-  achievement_GUID_to_vp["e85c94"] = 1 -- Dog Lover
-  achievement_GUID_to_vp["a5d2f1"] = 1 -- Environmentalist
-  achievement_GUID_to_vp["eba4d0"] = 2 -- Friendly Dog
-  achievement_GUID_to_vp["a8ce27"] = 2 -- Service Dog
-  achievement_GUID_to_vp["dd65d6"] = 2 -- Dog Idol
-  achievement_GUID_to_vp["da2d81"] = 2 -- Collector
-  achievement_GUID_to_vp["299289"] = 2 -- Careless Parents
-  achievement_GUID_to_vp["5bcd71"] = 2 -- King/Queen of Dog Park
-  achievement_GUID_to_vp["ba30d2"] = 2 -- Poor Dog
-  return achievement_GUID_to_vp[achievement_card.getGUID()]
+  return achievement_card_GUID_to_vp[achievement_card.getGUID()]
 end
 
 --------------------------------------------------------------------------------
