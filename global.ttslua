@@ -167,19 +167,20 @@ function onObjectEnterZone(zone, object)
     return
   end
 
-  if isItemCardEnterHandZone(zone, object) then
-    hideCardFromOtherPlayers(zone, object)
+  if isVpItemCardEnterOrLeaveHandZone(zone, object) then
+    updatePlayerVp(zone.getValue(), 1)
     return
   end
 
-  if isVpItemCardEnterOrLeaveHandZone(zone, object) then
-    updatePlayerVp(zone.getValue(), 1)
+  if isItemCardEnterHandZone(zone, object) then
+    hideCardFromOtherPlayers(zone, object)
     return
   end
 
   if isItemCardEnterCardPlayZone(zone, object) then
     log_utils.info("Item card "..object.getName().." is revealed on the table")
     object.setHiddenFrom()
+    return
   end
 end
 
@@ -197,6 +198,7 @@ function onObjectLeaveZone(zone, object)
 
   if isVpItemCardEnterOrLeaveHandZone(zone, object) then
     updatePlayerVp(zone.getValue(), -1)
+    return
   end
 end
 
